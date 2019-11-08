@@ -4,11 +4,9 @@ services:
   mysql:
     image: mysql:5.7
     container_name: wp_docker_mysql
-    ports:
-      - 3306:3306
+    restart: on-failure:5
     volumes:
       - db_data:/var/lib/mysql
-    restart: on-failure:5
     environment:
       MYSQL_ROOT_PASSWORD: wordpress
       MYSQL_DATABASE: wordpress
@@ -18,13 +16,13 @@ services:
   wordpress:
     depends_on:
       - mysql
-    image: wordpress:5.2.4-php7.2
+    image: wordpress:latest
     container_name: wp_docker_wordpress
+    restart: on-failure:5
     ports:
       - 80:80
     volumes:
-      - ./wordpress:/var/www/html
-    restart: on-failure:5
+      - ./content:/var/www/html/wp-content
     environment:
       DB_HOST: mysql:3306
       DB_USER: wordpress
