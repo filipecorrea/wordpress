@@ -22,7 +22,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./content:/var/www/html/wp-content
+      - ./wordpress/wp-content:/var/www/html/wp-content
     environment:
       DB_HOST: mysql:3306
       DB_USER: wordpress
